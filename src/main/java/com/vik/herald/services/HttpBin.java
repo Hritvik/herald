@@ -13,9 +13,9 @@ import org.springframework.stereotype.*;
 import java.util.concurrent.*;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class HttpBin {
-    private final RestClient restClient;
+    @Autowired private final RestClient restClient;
 
     @MeasureLatency(metricName = CommonConstants.MetricNames.DOWNSTREAM_CALL)
     public Future<BaseResponse> fetchNdrStatus(BaseRequest request) {

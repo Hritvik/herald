@@ -26,13 +26,12 @@ import java.util.concurrent.Future;
 @Slf4j
 @RestController
 @RequestMapping("/api/1.0/herald/dev/downstream")
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class DownstreamController {
 
-    private final ObjectMapper objectMapper;
+    @Autowired private final ObjectMapper objectMapper;
 
-    HttpBin httpBin;
-
+    @Autowired HttpBin httpBin;
 
     // Cache for method lookups
     private final Map<String, Method> methodCache = new ConcurrentHashMap<>();

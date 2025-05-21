@@ -21,11 +21,11 @@ import java.util.Map;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class LoggingMethods {
-    private final ObjectMapper objectMapper;
-    private final Environment environment;
-    private final MetricsService metricsService;
+    @Autowired private final ObjectMapper objectMapper;
+    @Autowired private final Environment environment;
+    @Autowired private final MetricsService metricsService;
 
     public void logDownstreamRequest(String classMethodName,
                                      String host,

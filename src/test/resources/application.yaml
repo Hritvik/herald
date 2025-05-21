@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: Herald
+  cloud:
+    config:
+      enabled: false
+  security:
+    user:
+      name: test-user
+      password: test-password
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info,metrics,prometheus
+    prometheus:
+      enabled: true
+  server:
+    port: 8081
+server:
+  port: 8080
+cache:
+  caffeine:
+    maximum-size: 100
+    expire-after-write: 10
+    expire-after-write-unit: MINUTES
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+logging:
+  level:
+    root: INFO
+herald:
+  services:
+    http-bin:
+      activate-at-startup: true
+      connection-pool:
+        default-max-per-route: 20
+        max-total: 20
+      credentials:
+        host: https://httpbin.org
+        auth:
+          - key: Authentication
+            value: test-api-key
+      timeout:
+        connection-timeout: 200
+        request-timeout: -1
+        socket-timeout: 500
+      retry:
+        strategy: EXPONENTIAL_BACKOFF
+        max-attempts: 3
+        initial-interval: 1000
+        multiplier: 2.0
+        max-interval: 10000
+        retryable-status-codes: [ 408, 429, 500, 502, 503, 504 ]
+        retryable-exceptions:
+          - java.net.SocketTimeoutException
+          - java.net.ConnectException
+          - org.apache.http.conn.ConnectionPoolTimeoutException
+      endpoints:
+        post:
+          path: /post
+          timeout:
+            connection-timeout: 200
+            request-timeout: -1
+            socket-timeout: 500
+          circuit-breaker:
+            strategy: SPRING_CLOUD
+            springCB:
+              circuit-breaker-name: http_bin_cb
+              time-limiter-name: http_bin_tl 

@@ -23,15 +23,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 @Slf4j
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class RestClient implements Herald {
-    protected final ObjectMapper objectMapper;
-    protected final LoggingMethods loggingMethods;
-    protected final RestClientConfigProperties restClientConfigProperties;
-    protected final HttpClientFactory httpClientFactory;
-    protected final CircuitBreakerStrategyFactory circuitBreakerStrategyFactory;
-    protected final RetryStrategyFactory retryStrategyFactory;
-    protected final RestClientHelper restClientHelper;
+
+    @Autowired protected final ObjectMapper objectMapper;
+    @Autowired protected final LoggingMethods loggingMethods;
+    @Autowired protected final RestClientConfigProperties restClientConfigProperties;
+    @Autowired protected final HttpClientFactory httpClientFactory;
+    @Autowired protected final CircuitBreakerStrategyFactory circuitBreakerStrategyFactory;
+    @Autowired protected final RetryStrategyFactory retryStrategyFactory;
+    @Autowired protected final RestClientHelper restClientHelper;
 
     @Override
     public <T, R> CompletableFuture<R> post(

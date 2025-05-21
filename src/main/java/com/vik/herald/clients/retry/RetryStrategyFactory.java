@@ -2,6 +2,7 @@ package com.vik.herald.clients.retry;
 
 import com.vik.herald.config.RestClientConfigProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.EnumMap;
 @Component
 @RequiredArgsConstructor
 public class RetryStrategyFactory {
-    private final List<RetryStrategy> strategies;
-    private final RestClientConfigProperties restClientConfigProperties;
+    @Autowired private final List<RetryStrategy> strategies;
+    @Autowired private final RestClientConfigProperties restClientConfigProperties;
 
     private Map<RetryStrategyType, RetryStrategy> strategyMap;
 

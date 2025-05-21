@@ -7,7 +7,6 @@ import com.vik.herald.clients.circuitbreaker.SpringCloudCircuitBreakerStrategy;
 import com.vik.herald.clients.filter.DownstreamRequestInterceptor;
 import com.vik.herald.clients.RestClient;
 import com.vik.herald.clients.retry.*;
-import com.vik.herald.interfaces.*;
 import com.vik.herald.utils.LoggingMethods;
 import com.vik.herald.utils.MetricsService;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -94,7 +93,13 @@ public class HeraldAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public Herald herald(
+    public RestClientHelper restClientHelper() {
+        return new RestClientHelper();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RestClient restClient(
             ObjectMapper objectMapper,
             LoggingMethods loggingMethods,
             RestClientConfigProperties restClientConfigProperties,
@@ -111,6 +116,6 @@ public class HeraldAutoConfiguration {
                 circuitBreakerStrategyFactory,
                 retryStrategyFactory,
                 restClientHelper
-        ) {};
+        );
     }
 } 

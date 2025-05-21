@@ -2,19 +2,18 @@ package com.vik.herald.clients.circuitbreaker;
 
 import com.vik.herald.config.RestClientConfigProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.EnumMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class CircuitBreakerStrategyFactory {
-    private final List<CircuitBreakerStrategy> strategies;
-    private final RestClientConfigProperties restClientConfigProperties;
+    @Autowired private final List<CircuitBreakerStrategy> strategies;
+    @Autowired private final RestClientConfigProperties restClientConfigProperties;
 
     private Map<CircuitBreakerStrategyType, CircuitBreakerStrategy> strategyMap;
 

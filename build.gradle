@@ -73,6 +73,24 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+// Configure Javadoc to work with Lombok
+tasks.named('javadoc') {
+	options.addStringOption('Xdoclint:none', '-quiet')
+	options.addStringOption('encoding', 'UTF-8')
+	options.addStringOption('charSet', 'UTF-8')
+}
+
+// Disable the bootJar task since we want to create a library JAR
+bootJar {
+	enabled = false
+}
+
+// Enable the jar task
+jar {
+	enabled = true
+	archiveClassifier = ''
+}
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {

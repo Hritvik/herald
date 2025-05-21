@@ -3,6 +3,7 @@ package com.vik.herald.clients.circuitbreaker;
 import com.vik.herald.config.RestClientConfigProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Component;
@@ -16,9 +17,9 @@ import java.util.function.Supplier;
 @Component
 @RequiredArgsConstructor
 public class SpringCloudCircuitBreakerStrategy implements CircuitBreakerStrategy {
-    private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
-    private final RestClientConfigProperties restClientConfigProperties;
-    private final ExecutorService restClientExecutor;
+    @Autowired private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
+    @Autowired private final RestClientConfigProperties restClientConfigProperties;
+    @Autowired private final ExecutorService restClientExecutor;
 
     @Override
     public <R> CompletableFuture<R> execute(

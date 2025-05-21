@@ -19,10 +19,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+@RequiredArgsConstructor
 public class ControllerInstrumentationAspect {
 
-    private final MetricsService metricsService;
+    @Autowired private final MetricsService metricsService;
 
     @Around("@annotation(controlleraInstrumentation)")
     public Object logAndMetrics(
