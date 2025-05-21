@@ -1,0 +1,117 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'maven-publish'
+}
+
+group = 'com.vik'
+version = '1.0.0'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+	withSourcesJar()
+	withJavadocJar()
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url = uri("https://jitpack.io") }
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2024.0.1"
+	}
+}
+
+dependencies {
+	// Spring Boot + WebFlux
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.springframework.cloud:spring-cloud-context'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.cloud:spring-cloud-starter-function-webflux'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+
+	// Micrometer
+	implementation 'io.micrometer:micrometer-core'
+	implementation 'io.micrometer:micrometer-registry-prometheus'
+
+	// Apache utils
+	implementation 'org.apache.commons:commons-lang3'
+	implementation 'org.apache.httpcomponents.client5:httpclient5'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Internal Libraries
+	implementation 'com.github.Hritvik:utils:v1.0.1'
+
+	// Optional: for Spring Boot config metadata (e.g., IDE autocomplete)
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// Test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+			pom {
+				name = 'Herald'
+				description = 'A Http Client for Vik Internal Services'
+				url = 'https://github.com/Hritvik/herald'
+				licenses {
+					license {
+						name = 'The Apache License, Version 2.0'
+						url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					}
+				}
+				developers {
+					developer {
+						id = 'Hritvik'
+						name = 'Hritvik Dinkar'
+						email = 'hritvikdinkar@gmail.com'
+					}
+				}
+				scm {
+					connection = 'scm:git:git://github.com/Hritvik/herald.git'
+					developerConnection = 'scm:git:ssh://github.com/Hritvik/herald.git'
+					url = 'https://github.com/Hritvik/herald'
+				}
+				issueManagement {
+					system = 'GitHub'
+					url = 'https://github.com/Hritvik/herald/issues'
+				}
+			}
+		}
+	}
+}
