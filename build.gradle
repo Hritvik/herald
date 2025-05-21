@@ -26,6 +26,14 @@ repositories {
 	mavenLocal()
 	mavenCentral()
 	maven { url = uri("https://jitpack.io") }
+	maven {
+		name = "GitHubPackages"
+		url = uri("https://maven.pkg.github.com/Hritvik/herald")
+		credentials {
+			username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user")
+			password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
+		}
+	}
 }
 
 dependencyManagement {
@@ -129,6 +137,16 @@ publishing {
 					system = 'GitHub'
 					url = 'https://github.com/Hritvik/herald/issues'
 				}
+			}
+		}
+	}
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/Hritvik/herald")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user")
+				password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
 			}
 		}
 	}
