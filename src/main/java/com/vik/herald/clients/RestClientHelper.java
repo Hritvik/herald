@@ -1,7 +1,8 @@
 package com.vik.herald.clients;
 
-import com.vik.herald.aop.annotations.*;
+
 import com.vik.herald.config.*;
+import com.vik.utils.aop.annotations.*;
 import org.apache.commons.lang3.tuple.*;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.config.*;

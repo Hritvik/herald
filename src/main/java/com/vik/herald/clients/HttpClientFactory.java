@@ -2,7 +2,7 @@ package com.vik.herald.clients;
 
 import com.vik.herald.clients.filter.DownstreamRequestInterceptor;
 import com.vik.herald.config.*;
-import com.vik.herald.utils.MetricsService;
+import com.vik.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;

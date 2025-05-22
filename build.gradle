@@ -48,7 +48,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.cloud:spring-cloud-context'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-	implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-function-webflux'
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
@@ -66,7 +66,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	// Internal Libraries
-	implementation 'com.github.Hritvik:utils:v1.0.1'
+	implementation 'com.github.Hritvik:utils:v1.0.6'
 
 	// Optional: for Spring Boot config metadata (e.g., IDE autocomplete)
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
